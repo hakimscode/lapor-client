@@ -8,7 +8,7 @@ class Laporan extends Component {
   constructor(props) {
     super(props);
 
-    // this.API_URL = "http://localhost/laravel/lapor_online/api/jenis_laporan";
+    // this.API_URL = "http://localhost/laravel/lapor_online/api/laporan";
     this.API_URL = "http://api.fawwazlab.com/lapor/api/laporan";
 
     this.state = {
@@ -59,7 +59,7 @@ class Laporan extends Component {
     // this.handleChange = this.handleChange.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this);
     // this.cancelClick = this.cancelClick.bind(this);
-    this.detailClick = this.detailClick.bind(this);
+    // this.detailClick = this.detailClick.bind(this);
   }
 
   componentDidMount() {
@@ -72,10 +72,6 @@ class Laporan extends Component {
     this.setState({
       tmp_jenis_laporan: e.target.value
     });
-  };
-
-  detailClick = id_laporan => {
-    //
   };
 
   editClick = id_jenis_laporan => {
@@ -102,58 +98,7 @@ class Laporan extends Component {
     }
   };
 
-  cancelClick = () => {
-    this.setState({
-      tmp_id: "",
-      tmp_jenis_laporan: "",
-      value_simpan: "Simpan"
-    });
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-    if (this.state.tmp_id === "") {
-      axios
-        .post(this.API_URL + "/insert", {
-          jenis_laporan: this.state.tmp_jenis_laporan
-        })
-        .then(res => {
-          if (res.status === 200) {
-            this.setState({
-              laporan: [...this.state.laporan, res.data.result]
-            });
-            this.cancelClick();
-          } else {
-            console.log("error");
-          }
-        });
-    } else {
-      axios
-        .put(this.API_URL + "/edit", {
-          id: this.state.tmp_id,
-          jenis_laporan: this.state.tmp_jenis_laporan
-        })
-        .then(res => {
-          if (res.status === 200) {
-            this.setState({
-              laporan: this.state.laporan.map(row_kel => {
-                if (row_kel.id === res.data.result.id) {
-                  row_kel.jenis_laporan = res.data.result.jenis_laporan;
-                }
-                return row_kel;
-              })
-            });
-            this.cancelClick();
-          } else {
-            console.log("error");
-          }
-        });
-    }
-  };
-
   colorStatus = param => {
-    console.log(param);
-
     switch (param) {
       case "0":
         return "secondary";
@@ -166,6 +111,10 @@ class Laporan extends Component {
       default:
         return "";
     }
+  };
+
+  linkDetailId = id => {
+    return "/data/laporan/" + id;
   };
 
   render() {
@@ -206,7 +155,7 @@ class Laporan extends Component {
                           </Badge>
                         </td>
                         <td>
-                          <Link to="/data/detaillaporan/">Detail</Link>
+                          <Link to={this.linkDetailId(row.id)}>Detail</Link>
                         </td>
                       </tr>
                     ))}

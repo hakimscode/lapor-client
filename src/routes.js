@@ -50,10 +50,10 @@ const routes = [
   { path: "/", exact: true, name: "Home" },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
   { path: "/data", exact: true, name: "Data", component: Laporan },
-  { path: "/data/laporan", name: "Laporan", component: Laporan },
+  { path: "/data/laporan", exact: true, name: "Laporan", component: Laporan },
   {
-    path: "/data/detaillaporan",
-    name: "DetailLaporan",
+    path: "/data/laporan/:laporanid",
+    name: "Detail Laporan",
     component: DetailLaporan
   },
   {
