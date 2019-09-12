@@ -1,61 +1,141 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Badge, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
+import React, { Component } from "react";
+import {
+  Badge,
+  Card,
+  CardBody,
+  CardHeader,
+  Col,
+  Row,
+  Table,
+  Button
+} from "reactstrap";
 
-import usersData from './UsersData'
-
-function UserRow(props) {
-  const user = props.user
-  const userLink = `/users/${user.id}`
-
-  const getBadge = (status) => {
-    return status === 'Active' ? 'success' :
-      status === 'Inactive' ? 'secondary' :
-        status === 'Pending' ? 'warning' :
-          status === 'Banned' ? 'danger' :
-            'primary'
-  }
-
-  return (
-    <tr key={user.id.toString()}>
-      <th scope="row"><Link to={userLink}>{user.id}</Link></th>
-      <td><Link to={userLink}>{user.name}</Link></td>
-      <td>{user.registered}</td>
-      <td>{user.role}</td>
-      <td><Link to={userLink}><Badge color={getBadge(user.status)}>{user.status}</Badge></Link></td>
-    </tr>
-  )
-}
+import axios from "axios";
 
 class Users extends Component {
+  constructor(props) {
+    super(props);
+
+    this.API_URL = "http://api.fawwazlab.com/lapor/api/user";
+
+    this.state = {
+      users: [
+        {
+          id: "",
+          nama_user: "",
+          no_ktp: "",
+          status: "",
+          string_status: "",
+          ktp_verified_at: "",
+          jenis_user: "",
+          string_jenis_user: ""
+        }
+      ]
+    };
+  }
+
+  componentDidMount() {
+    axios.get(this.API_URL + "/all").then(res => {
+      this.setState({ users: res.data.result });
+    });
+  }
+
+  activeClick = id_user => {
+    if (window.confirm("Anda yakin ingin memverifikasi user ini?")) {
+      axios.get(this.API_URL + "/verifikasi/" + id_user).then(res => {
+        this.setState({
+          users: this.state.users.map(user => {
+            if (user.id === id_user) {
+              user.status = res.data.result.status;
+              user.string_status = res.data.result.string_status;
+            }
+            return user;
+          })
+        });
+      });
+    }
+  };
+
+  hapusClick = id_user => {
+    if (window.confirm("Anda yakin ingin menghapus user ini?")) {
+      axios.get(this.API_URL + "/delete/" + id_user).then(res => {
+        this.setState({
+          users: [
+            ...this.state.users.filter(users => users.id !== res.data.result.id)
+          ]
+        });
+      });
+    }
+  };
+
+  getBtnActive = (status, id) => {
+    if (status === "0") {
+      return (
+        <Button
+          size="sm"
+          color="success"
+          className="mb-2 mr-1"
+          id_jenis_laporan={id}
+          onClick={this.activeClick.bind(this, id)}
+        >
+          Aktifkan
+        </Button>
+      );
+    }
+  };
+
+  getBadegStatus = status => {
+    return status === "0" ? "secondary" : status === "1" ? "success" : "";
+  };
 
   render() {
-
-    const userList = usersData.filter((user) => user.id < 10)
-
     return (
       <div className="animated fadeIn">
         <Row>
-          <Col xl={6}>
+          <Col xl={8}>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i> Users <small className="text-muted">example</small>
+                <i className="fa fa-align-justify"></i> Users{" "}
+                <small className="text-muted">example</small>
               </CardHeader>
               <CardBody>
                 <Table responsive hover>
                   <thead>
                     <tr>
-                      <th scope="col">id</th>
-                      <th scope="col">name</th>
-                      <th scope="col">registered</th>
-                      <th scope="col">role</th>
-                      <th scope="col">status</th>
+                      <th scope="col">No</th>
+                      <th scope="col">No KTP</th>
+                      <th scope="col">Nama Lengkap</th>
+                      <th scope="col">Jenis User</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">#</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {userList.map((user, index) =>
-                      <UserRow key={index} user={user}/>
-                    )}
+                    {this.state.users.map((row, index) => (
+                      <tr key={row.id}>
+                        <td>{index + 1}</td>
+                        <td>{row.no_ktp}</td>
+                        <td>{row.nama_user}</td>
+                        <td>{row.string_jenis_user}</td>
+                        <td>
+                          <Badge color={this.getBadegStatus(row.status)}>
+                            {row.string_status}
+                          </Badge>
+                        </td>
+                        <td>
+                          {this.getBtnActive(row.status, row.id)}
+                          <Button
+                            size="sm"
+                            color="danger"
+                            className="mb-2 mr-1"
+                            id_jenis_laporan={row.id}
+                            onClick={this.hapusClick.bind(this, row.id)}
+                          >
+                            Hapus
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </Table>
               </CardBody>
@@ -63,7 +143,7 @@ class Users extends Component {
           </Col>
         </Row>
       </div>
-    )
+    );
   }
 }
 

@@ -1,19 +1,11 @@
-import React, { Component } from 'react';
-import { Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
-
-import usersData from './UsersData'
+import React, { Component } from "react";
+import { Card, CardBody, CardHeader, Col, Row, Table } from "reactstrap";
 
 class User extends Component {
-
   render() {
-
-    const user = usersData.find( user => user.id.toString() === this.props.match.params.id)
-
-    const userDetails = user ? Object.entries(user) : [['id', (<span><i className="text-muted icon-ban"></i> Not found</span>)]]
-
     return (
       <div className="animated fadeIn">
-        <Row>
+        {/* <Row>
           <Col lg={6}>
             <Card>
               <CardHeader>
@@ -37,9 +29,9 @@ class User extends Component {
               </CardBody>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
       </div>
-    )
+    );
   }
 }
 
