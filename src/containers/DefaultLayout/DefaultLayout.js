@@ -31,6 +31,7 @@ class DefaultLayout extends Component {
 
   signOut(e) {
     e.preventDefault();
+    localStorage.removeItem("jwt-token-lapor-online");
     this.props.history.push("/login");
   }
 

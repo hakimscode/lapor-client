@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardBody, CardHeader, Col, Row, Table, Badge } from "reactstrap";
+import { AppSwitch } from "@coreui/react";
 //import DetailLaporan from "./DetailLaporan";
 import axios from "axios";
+import { thisTypeAnnotation } from "@babel/types";
 
 class Laporan extends Component {
   constructor(props) {
@@ -30,7 +32,8 @@ class Laporan extends Component {
           gambar3: "",
           verified: "",
           status: "",
-          id_status: ""
+          id_status: "",
+          public: ""
         }
       ],
       tmp_id: "",
@@ -50,6 +53,7 @@ class Laporan extends Component {
       tmp_verified: "",
       tmp_status: "",
       tmp_id_status: "",
+      txt_public: "",
 
       color_status: "",
       color_verified: "",
@@ -67,12 +71,6 @@ class Laporan extends Component {
       this.setState({ laporan: res.data.result });
     });
   }
-
-  handleChange = e => {
-    this.setState({
-      tmp_jenis_laporan: e.target.value
-    });
-  };
 
   editClick = id_jenis_laporan => {
     axios.get(this.API_URL + "/" + id_jenis_laporan).then(res => {
@@ -98,6 +96,33 @@ class Laporan extends Component {
     }
   };
 
+  changePublik = (e, id_laporan) => {
+    let msg = e.target.checked ? "Mempublikasi" : "Memprivasi";
+    let val_pub = e.target.checked ? 1 : 0;
+
+    if (window.confirm("Anda yakin ingin " + msg + " laporan ini?")) {
+      axios
+        .post(this.API_URL + "/update_publikasi", {
+          id: id_laporan,
+          public: val_pub
+        })
+        .then(res => {
+          if (res.status === 200) {
+            this.setState({
+              laporan: this.state.laporan.map(row_laporan => {
+                if (row_laporan.id === id_laporan) {
+                  row_laporan.public = res.data.result.public;
+                }
+                return row_laporan;
+              })
+            });
+          } else {
+            console.log("error");
+          }
+        });
+    }
+  };
+
   colorStatus = param => {
     switch (param) {
       case "0":
@@ -115,6 +140,10 @@ class Laporan extends Component {
 
   linkDetailId = id => {
     return "/data/laporan/" + id;
+  };
+
+  chkPublic = pub => {
+    return pub === "1" ? true : false;
   };
 
   render() {
@@ -137,6 +166,7 @@ class Laporan extends Component {
                       <th>Tanggal Lapor</th>
                       <th>Judul</th>
                       <th>Status</th>
+                      <th>Publikasi</th>
                       <th>#</th>
                     </tr>
                   </thead>
@@ -153,6 +183,17 @@ class Laporan extends Component {
                           <Badge color={this.colorStatus(row.id_status)}>
                             {row.status}
                           </Badge>
+                        </td>
+                        <td>
+                          <AppSwitch
+                            className={"mx-1"}
+                            variant={"pill"}
+                            color={"primary"}
+                            onChange={e => {
+                              this.changePublik(e, row.id);
+                            }}
+                            checked={this.chkPublic(row.public)}
+                          />
                         </td>
                         <td>
                           <Link to={this.linkDetailId(row.id)}>Detail</Link>

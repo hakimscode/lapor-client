@@ -29,8 +29,8 @@ class JenisLaporan extends Component {
           jenis_laporan: ""
         }
       ],
-      tmp_jenis_laporan: "",
-      tmp_id: "",
+      txt_jenis_laporan: "",
+      txt_id: "",
 
       value_simpan: "Simpan"
     };
@@ -48,15 +48,15 @@ class JenisLaporan extends Component {
 
   handleChange = e => {
     this.setState({
-      tmp_jenis_laporan: e.target.value
+      txt_jenis_laporan: e.target.value
     });
   };
 
   editClick = id_jenis_laporan => {
     axios.get(this.API_URL + "/" + id_jenis_laporan).then(res => {
       this.setState({
-        tmp_id: id_jenis_laporan,
-        tmp_jenis_laporan: res.data.result.jenis_laporan,
+        txt_id: id_jenis_laporan,
+        txt_jenis_laporan: res.data.result.jenis_laporan,
         value_simpan: "Edit"
       });
     });
@@ -78,18 +78,18 @@ class JenisLaporan extends Component {
 
   cancelClick = () => {
     this.setState({
-      tmp_id: "",
-      tmp_jenis_laporan: "",
+      txt_id: "",
+      txt_jenis_laporan: "",
       value_simpan: "Simpan"
     });
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    if (this.state.tmp_id === "") {
+    if (this.state.txt_id === "") {
       axios
         .post(this.API_URL + "/insert", {
-          jenis_laporan: this.state.tmp_jenis_laporan
+          jenis_laporan: this.state.txt_jenis_laporan
         })
         .then(res => {
           if (res.status === 200) {
@@ -104,8 +104,8 @@ class JenisLaporan extends Component {
     } else {
       axios
         .put(this.API_URL + "/edit", {
-          id: this.state.tmp_id,
-          jenis_laporan: this.state.tmp_jenis_laporan
+          id: this.state.txt_id,
+          jenis_laporan: this.state.txt_jenis_laporan
         })
         .then(res => {
           if (res.status === 200) {
@@ -191,7 +191,7 @@ class JenisLaporan extends Component {
                       <Input
                         type="text"
                         onChange={this.handleChange}
-                        value={this.state.tmp_jenis_laporan}
+                        value={this.state.txt_jenis_laporan}
                         required
                         placeholder="Jenis Laporan"
                       />

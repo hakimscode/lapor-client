@@ -7,7 +7,8 @@ import {
   Col,
   Jumbotron,
   Row,
-  Badge
+  Badge,
+  Input
 } from "reactstrap";
 import axios from "axios";
 
@@ -37,7 +38,8 @@ export class DetailLaporan extends Component {
           gambar3: "",
           verified: "",
           status: "",
-          id_status: ""
+          id_status: "",
+          public: ""
         }
       ],
       tmp_id: "",
@@ -57,6 +59,7 @@ export class DetailLaporan extends Component {
       tmp_verified: "",
       tmp_status: "",
       tmp_id_status: "",
+      txt_public: "",
 
       color_status: "",
       color_verified: "",
