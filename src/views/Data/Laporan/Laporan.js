@@ -11,7 +11,7 @@ class Laporan extends Component {
     super(props);
 
     // this.API_URL = "http://localhost/laravel/lapor_online/api/laporan";
-    this.API_URL = "http://api.fawwazlab.com/lapor/api/laporan";
+    this.API_URL = "https://api.fawwazlab.com/lapor/api/laporan";
 
     this.state = {
       laporan: [

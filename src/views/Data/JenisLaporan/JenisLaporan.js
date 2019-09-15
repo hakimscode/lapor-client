@@ -20,7 +20,7 @@ class JenisLaporan extends Component {
     super(props);
 
     // this.API_URL = "http://localhost/laravel/lapor_online/api/jenis_laporan";
-    this.API_URL = "http://api.fawwazlab.com/lapor/api/jenis_laporan";
+    this.API_URL = "https://api.fawwazlab.com/lapor/api/jenis_laporan";
 
     this.state = {
       jns_laporan: [

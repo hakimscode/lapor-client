@@ -36,7 +36,7 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    Axios.post("http://api.fawwazlab.com/lapor/api/user/login_admin", {
+    Axios.post("https://api.fawwazlab.com/lapor/api/user/login_admin", {
       username: this.state.txt_username,
       password: this.state.txt_password
     }).then(res => {

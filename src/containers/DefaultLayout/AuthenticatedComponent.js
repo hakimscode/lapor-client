@@ -22,7 +22,7 @@ export class AuthenticatedComponent extends Component {
       this.props.history.push("/login");
     } else {
       Axios.get(
-        "http://api.fawwazlab.com/lapor/api/user/get_user_by_token/" + jwt
+        "https://api.fawwazlab.com/lapor/api/user/get_user_by_token/" + jwt
       ).then(res => {
         if (res.data.id === 0) {
           this.props.history.push("/login");

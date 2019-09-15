@@ -21,7 +21,7 @@ class Users extends Component {
   constructor(props) {
     super(props);
 
-    this.API_URL = "http://api.fawwazlab.com/lapor/api/user";
+    this.API_URL = "https://api.fawwazlab.com/lapor/api/user";
 
     this.state = {
       users: [
