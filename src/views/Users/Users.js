@@ -109,7 +109,7 @@ class Users extends Component {
         .then(res => {
           if (res.status === 200) {
             this.setState({
-              users: [...this.state.users, res.data.result]
+              users: [res.data.result, ...this.state.users]
             });
             this.setState({
               txt_nama: "",
