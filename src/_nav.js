@@ -37,11 +37,6 @@ export default {
       name: "User",
       url: "/users",
       icon: "icon-user"
-    },
-    {
-      name: "Logout",
-      url: "/users",
-      icon: "icon-logout"
     }
   ]
 };
