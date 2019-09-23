@@ -88,7 +88,7 @@ export class DetailLaporan extends Component {
     axios
       .post(this.API_URL + "/update_status", {
         id: this.state.laporan.id,
-        status: 2
+        status: 3
       })
       .then(res => {
         if (res.status === 200) {
@@ -110,7 +110,7 @@ export class DetailLaporan extends Component {
   btnActionView = () => {
     if (
       this.state.laporan.verified === "0" &&
-      this.state.laporan.id_status !== "3"
+      this.state.laporan.id_status !== "4"
     ) {
       return (
         <Row>
@@ -126,13 +126,13 @@ export class DetailLaporan extends Component {
           </Col>
         </Row>
       );
-    } else if (this.state.laporan.id_status === "3") {
+    } else if (this.state.laporan.id_status === "4") {
       return (
         <Badge className="mr-1" color="danger">
           {this.state.laporan.status}
         </Badge>
       );
-    } else if (this.state.laporan.id_status === "2") {
+    } else if (this.state.laporan.id_status === "3") {
       return (
         <Badge className="mr-1" color="success">
           {this.state.laporan.status}

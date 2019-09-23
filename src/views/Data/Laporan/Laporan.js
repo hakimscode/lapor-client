@@ -4,7 +4,6 @@ import { Card, CardBody, CardHeader, Col, Row, Table, Badge } from "reactstrap";
 import { AppSwitch } from "@coreui/react";
 //import DetailLaporan from "./DetailLaporan";
 import axios from "axios";
-import { thisTypeAnnotation } from "@babel/types";
 
 class Laporan extends Component {
   constructor(props) {
@@ -130,8 +129,10 @@ class Laporan extends Component {
       case "1":
         return "warning";
       case "2":
-        return "success";
+        return "warning";
       case "3":
+        return "success";
+      case "4":
         return "danger";
       default:
         return "";
