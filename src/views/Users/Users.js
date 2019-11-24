@@ -10,7 +10,6 @@ import {
   Table,
   Button,
   Form,
-  FormGroup,
   Label,
   Input
 } from "reactstrap";
@@ -29,6 +28,12 @@ class Users extends Component {
           id: "",
           nama_user: "",
           no_ktp: "",
+          pangkat: "",
+          jabatan: "",
+          instansi: "",
+          alamat: "",
+          no_hp: "",
+          email: "",
           status: "",
           string_status: "",
           ktp_verified_at: "",
@@ -37,8 +42,14 @@ class Users extends Component {
         }
       ],
       txt_id: "",
-      txt_no_ktp: "",
       txt_nama: "",
+      txt_no_ktp: "",
+      txt_pangkat: "",
+      txt_jabatan: "",
+      txt_instansi: "",
+      txt_alamat: "",
+      txt_no_hp: "",
+      txt_email: "",
       txt_password: "",
       txt_password_2: "",
       value_simpan: "Simpan"
@@ -101,6 +112,12 @@ class Users extends Component {
         .post(this.API_URL + "/insert", {
           nama_user: this.state.txt_nama,
           no_ktp: this.state.txt_no_ktp,
+          pangkat: this.state.txt_pangkat,
+          jabatan: this.state.txt_jabatan,
+          instansi: this.state.txt_instansi,
+          alamat: this.state.txt_alamat,
+          no_hp: this.state.txt_no_hp,
+          email: this.state.txt_email,
           password: this.state.txt_password,
           status: 1,
           ktp_verified_at: tglNow,
@@ -114,6 +131,12 @@ class Users extends Component {
             this.setState({
               txt_nama: "",
               txt_no_ktp: "",
+              txt_pangkat: "",
+              txt_jabatan: "",
+              txt_instansi: "",
+              txt_alamat: "",
+              txt_no_hp: "",
+              txt_email: "",
               txt_password: "",
               txt_password_2: ""
             });
@@ -148,7 +171,170 @@ class Users extends Component {
     return (
       <div className="animated fadeIn">
         <Row>
-          <Col xl={8}>
+          <Col xs="12">
+            <Card>
+              <CardHeader>
+                <i className="fa fa-align-justify"></i> Tambah User Polisi
+              </CardHeader>
+              <Form onSubmit={this.handleSubmit}>
+                <CardBody>
+                  <Row>
+                    <Col>
+                      <Row form>
+                        <Col md="6" className="form-group">
+                          <label htmlFor="feInputCity">NRP</label>
+                          <Input
+                            id="feInputCity"
+                            placeholder="Input NRP"
+                            name="txt_no_ktp"
+                            onChange={this.handleChange}
+                            value={this.state.txt_no_ktp}
+                            required
+                          />
+                        </Col>
+                        <Col md="6" className="form-group">
+                          <label htmlFor="feInputCity">Nama</label>
+                          <Input
+                            id="feInputCity"
+                            placeholder="Input Nama Lengkap"
+                            name="txt_nama"
+                            onChange={this.handleChange}
+                            value={this.state.txt_nama}
+                            required
+                          />
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <Row form>
+                        <Col md="6" className="form-group">
+                          <label htmlFor="feInputCity">Pangkat</label>
+                          <Input
+                            id="feInputCity"
+                            placeholder="Input Pangkat"
+                            name="txt_pangkat"
+                            onChange={this.handleChange}
+                            value={this.state.txt_pangkat}
+                            required
+                          />
+                        </Col>
+                        <Col md="6" className="form-group">
+                          <label htmlFor="feInputCity">Jabatan</label>
+                          <Input
+                            id="feInputCity"
+                            placeholder="Input Jabatan"
+                            name="txt_jabatan"
+                            onChange={this.handleChange}
+                            value={this.state.txt_jabatan}
+                            required
+                          />
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <Row form>
+                        <Col md="6" className="form-group">
+                          <label htmlFor="feInputCity">Instansi</label>
+                          <Input
+                            id="feInputCity"
+                            placeholder="Input Instansi"
+                            name="txt_instansi"
+                            onChange={this.handleChange}
+                            value={this.state.txt_instansi}
+                            required
+                          />
+                        </Col>
+                        <Col md="6" className="form-group">
+                          <label htmlFor="feInputCity">Alamat</label>
+                          <Input
+                            id="feInputCity"
+                            placeholder="Input Alamat"
+                            name="txt_alamat"
+                            onChange={this.handleChange}
+                            value={this.state.txt_alamat}
+                            required
+                          />
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <Row form>
+                        <Col md="6" className="form-group">
+                          <label htmlFor="feInputCity">No HP</label>
+                          <Input
+                            id="feInputCity"
+                            type="number"
+                            placeholder="Input No Handphone"
+                            name="txt_no_hp"
+                            onChange={this.handleChange}
+                            value={this.state.txt_no_hp}
+                            required
+                          />
+                        </Col>
+                        <Col md="6" className="form-group">
+                          <label htmlFor="feInputCity">Email</label>
+                          <Input
+                            id="feInputCity"
+                            type="email"
+                            placeholder="Input email"
+                            name="txt_email"
+                            onChange={this.handleChange}
+                            value={this.state.txt_email}
+                            required
+                          />
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <Row form>
+                        <Col md="6" className="form-group">
+                          <Label htmlFor="jenis-laporan">Password</Label>
+                          <Input
+                            type="password"
+                            name="txt_password"
+                            onChange={this.handleChange}
+                            value={this.state.txt_password}
+                            required
+                            placeholder="Password"
+                          />
+                        </Col>
+                        <Col md="6" className="form-group">
+                          <Label htmlFor="jenis-laporan">Ulangi Password</Label>
+                          <Input
+                            type="password"
+                            name="txt_password_2"
+                            onChange={this.handleChange}
+                            value={this.state.txt_password_2}
+                            required
+                            placeholder="Ulangi Password"
+                          />
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                </CardBody>
+                <CardFooter>
+                  <Button type="submit" size="sm" color="primary">
+                    <i className="fa fa-dot-circle-o"></i>{" "}
+                    {this.state.value_simpan}
+                  </Button>
+                  <Button size="sm" color="danger" onClick={this.cancelClick}>
+                    <i className="fa fa-ban"></i> Cancel
+                  </Button>
+                </CardFooter>
+              </Form>
+            </Card>
+          </Col>
+
+          <Col xl={12}>
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify"></i> Users
@@ -158,8 +344,14 @@ class Users extends Component {
                   <thead>
                     <tr>
                       <th scope="col">No</th>
-                      <th scope="col">No KTP</th>
+                      <th scope="col">No KTP / NRP</th>
                       <th scope="col">Nama Lengkap</th>
+                      <th scope="col">Pangkat</th>
+                      <th scope="col">Jabatan</th>
+                      <th scope="col">Instansi</th>
+                      <th scope="col">Alamat</th>
+                      <th scope="col">No. HP</th>
+                      <th scope="col">Email</th>
                       <th scope="col">Jenis User</th>
                       <th scope="col">Status</th>
                       <th scope="col">#</th>
@@ -171,6 +363,12 @@ class Users extends Component {
                         <td>{index + 1}</td>
                         <td>{row.no_ktp}</td>
                         <td>{row.nama_user}</td>
+                        <td>{row.pangkat}</td>
+                        <td>{row.jabatan}</td>
+                        <td>{row.instansi}</td>
+                        <td>{row.alamat}</td>
+                        <td>{row.no_hp}</td>
+                        <td>{row.email}</td>
                         <td>{row.string_jenis_user}</td>
                         <td>
                           <Badge color={this.getBadegStatus(row.status)}>
@@ -194,87 +392,6 @@ class Users extends Component {
                   </tbody>
                 </Table>
               </CardBody>
-            </Card>
-          </Col>
-
-          <Col xs="12" lg="4">
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i> Tambah User Polisi
-              </CardHeader>
-              <Form onSubmit={this.handleSubmit}>
-                <CardBody>
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="jenis-laporan">No KTP</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <Input
-                        type="text"
-                        name="txt_no_ktp"
-                        onChange={this.handleChange}
-                        value={this.state.txt_no_ktp}
-                        required
-                        placeholder="No KTP"
-                      />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="jenis-laporan">Nama</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <Input
-                        type="text"
-                        name="txt_nama"
-                        onChange={this.handleChange}
-                        value={this.state.txt_nama}
-                        required
-                        placeholder="Nama Lengkap"
-                      />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="jenis-laporan">Password</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <Input
-                        type="password"
-                        name="txt_password"
-                        onChange={this.handleChange}
-                        value={this.state.txt_password}
-                        required
-                        placeholder="Password"
-                      />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="jenis-laporan">Ulangi Password</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <Input
-                        type="password"
-                        name="txt_password_2"
-                        onChange={this.handleChange}
-                        value={this.state.txt_password_2}
-                        required
-                        placeholder="Ulangi Password"
-                      />
-                    </Col>
-                  </FormGroup>
-                </CardBody>
-                <CardFooter>
-                  <Button type="submit" size="sm" color="primary">
-                    <i className="fa fa-dot-circle-o"></i>{" "}
-                    {this.state.value_simpan}
-                  </Button>
-                  <Button size="sm" color="danger" onClick={this.cancelClick}>
-                    <i className="fa fa-ban"></i> Cancel
-                  </Button>
-                </CardFooter>
-              </Form>
             </Card>
           </Col>
         </Row>
